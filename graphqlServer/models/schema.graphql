@@ -1,0 +1,16 @@
+input UserQuery {
+    userName: String
+    age: Int
+    gender: String
+}
+
+type Query {
+
+    user(id: ID!): User
+
+    users(filters: UserQuery, pageNum: Int, pageSize: Int): UserPage
+}
+
+schema {
+    query: Query
+}

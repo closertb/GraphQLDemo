@@ -1,0 +1,14 @@
+type User {
+    id: ID!
+    userName: String
+    userMixNick: String
+    age: Int
+    gender: String
+}
+
+type UserPage implements Pagination {
+    pageSize: Int
+    pageNum: Int
+    total: Int
+    data: [User]
+}

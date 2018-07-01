@@ -1,0 +1,8 @@
+{
+  "parser": "babel-eslint",
+  "extends": "eslint-config-hcb",
+  "rules": {
+    "no-param-reassign": [1, { "props": false }]
+  },
+  "globals": {}
+}

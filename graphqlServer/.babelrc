@@ -1,0 +1,18 @@
+{
+  "passPerPreset": true,
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ],
+    "stage-0"
+  ],
+  "plugins": [
+    "inline-import",
+    "lodash"
+  ]
+}
