@@ -1,5 +1,0 @@
-interface Pagination {
-    pageSize: Int
-    pageNum: Int
-    total: Int
-}
