@@ -7,7 +7,7 @@
     "build": "webpack --config webpack.config.js",
     "start": "webpack-dev-server --hot --inline"
   },
-  "homepage": "https://github.com/closertb/firstRect#readme",
+  "homepage": "https://github.com/closertb/graphqlDemo#readme",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.3",

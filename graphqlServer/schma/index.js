@@ -48,7 +48,7 @@ const PaginationType = new GraphQLObjectType({
 });
 const schema = new GraphQLSchema({
   query: new GraphQLObjectType({
-    name: 'Query',
+    name: 'militaryQuery',
     fields: {
       user: {
         type: UserType,
@@ -56,7 +56,7 @@ const schema = new GraphQLSchema({
           id: { type: GraphQLID }
         },
         resolve: (root, args, context, info) => {
-          const { id } = args      // the `id` argument for this field is declared above
+          const { id } = args;
           return getUser(id);
         }
       },

@@ -5,7 +5,6 @@ import cors from 'cors';
 import glob from 'glob';
 import path from 'path';
 import { graphiqlExpress, graphqlExpress } from 'apollo-server-express';
-// import schema from './models';
 import schema from './schma';
 
 const PORT = 8080;
