@@ -16,7 +16,7 @@ export const USERS_QUERY = gql`
     }
   }
 `;
-export const withCharacter = graphql(USERS_QUERY, {
+const withQuery = graphql(USERS_QUERY, {
   options: () => ({
     variables: {
       pageNum: 3,
@@ -27,7 +27,7 @@ export const withCharacter = graphql(USERS_QUERY, {
 class List extends Component {
   constructor(props) {
     super(props);
-    this.state = { lists: [{ name: 'dom' }, { name: 'simon' }] };
+    this.state = {};
   }
   render() {
     const { data: { loading, users } } = this.props;
@@ -49,9 +49,8 @@ class List extends Component {
           }
         </ul>
       </div>
-
     );
   }
 }
-const Character = withCharacter(List);
+const Character = withQuery(List);
 export default Character;

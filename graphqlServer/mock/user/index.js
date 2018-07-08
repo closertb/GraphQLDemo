@@ -120,7 +120,7 @@ export default router => {
 
 	});
 
-	router.get('/taobao/:userId/nick/', (req, res) => {
+	router.get('/api/:userId/nickName/', (req, res) => {
 		res.send(`denzel ${req.params.userId}`);
 	});
 

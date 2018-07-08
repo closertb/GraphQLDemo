@@ -13,5 +13,5 @@ export async function getUsers(queryParams, pageNum, pageSize) {
 }
 
 export async function getUserMixNick(userId) {
-  return await http.get(`http://127.0.0.1:8080/taobao/${userId}/nick/`).then(res => res.data);
+  return await http.get(`http://127.0.0.1:8080/api/${userId}/nickName/`).then(res => res.data);
 }

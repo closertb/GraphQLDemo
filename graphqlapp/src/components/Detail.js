@@ -3,7 +3,7 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 export const USER_QUERY = gql`
-query UserQuery($id: ID){
+query UserQuery($id: ID!){
   user(id:$id) {
     id,
     userName,
@@ -13,11 +13,12 @@ query UserQuery($id: ID){
     education,
     enlistTime,
     enlistYear,
+    userMixNick,
   }
 }
 `;
 
-const withCharacter = graphql(USER_QUERY, {
+const withQuery = graphql(USER_QUERY, {
   options: (props) => {
     const { match: { params } } = props;
     return {
@@ -25,12 +26,12 @@ const withCharacter = graphql(USER_QUERY, {
         id: params.id
       },
     };
-},
+  },
 });
 class Detail extends Component {
   constructor(props) {
     super(props);
-    this.state = { detail: { name: 'dom', age: 18 } };
+    this.state = {};
   }
   render() {
     const { data: { loading, user } } = this.props;
@@ -54,5 +55,5 @@ class Detail extends Component {
   }
 }
 
-const Character = withCharacter(Detail);
+const Character = withQuery(Detail);
 export default Character;

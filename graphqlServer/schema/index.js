@@ -5,6 +5,7 @@ import {
   GraphQLID,
   GraphQLString,
   GraphQLList,
+  GraphQLNonNull,
 } from 'graphql/type';
 import { getUser, getUsers, getUserMixNick } from '../service/index';
 
@@ -16,9 +17,6 @@ const UserType = new GraphQLObjectType({
     userName: { type: GraphQLString },
     userMixNick: { 
       type: GraphQLString,
-      args: {
-        ID: { type: GraphQLID }
-      },
       resolve: (root, args, context, info) => {
         const { id } = root;
         console.log(info)
@@ -53,7 +51,9 @@ const schema = new GraphQLSchema({
       user: {
         type: UserType,
         args: {
-          id: { type: GraphQLID }
+          id: {
+          	type: new GraphQLNonNull(GraphQLID)
+          }
         },
         resolve: (root, args, context, info) => {
           const { id } = args;
