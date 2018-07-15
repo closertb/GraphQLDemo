@@ -12,6 +12,7 @@
     "body-parser": "~1.17.1",
     "cookie-parser": "~1.4.3",
     "cors": "^2.8.3",
+    "dataloader": "^1.4.0",
     "debug": "~2.6.3",
     "express": "~4.15.2",
     "glob": "^7.1.2",

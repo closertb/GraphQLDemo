@@ -7,14 +7,19 @@ import {
   GraphQLList,
   GraphQLNonNull,
 } from 'graphql/type';
-import { getUser, getUsers, getUserMixNick } from '../service/index';
+import DataLoader from 'dataloader';
+import { getUser, getUsers, getUserMixNick, getUserById } from '../service/index';
 
-
+const userLoader = new DataLoader(ids => getUserById(ids));
 const UserType = new GraphQLObjectType({
   name: 'User',
-  fields: {
+  fields: () => ({
     id: { type: GraphQLInt },
     userName: { type: GraphQLString },
+    chiefs: {
+      type: new GraphQLList(UserType),
+      resolve: (user, args, { loaders }) => loaders.person.loadMany(user.chiefs).then(value => value.map(item => item.data))
+    },
     userMixNick: { 
       type: GraphQLString,
       resolve: (root, args, context, info) => {
@@ -29,7 +34,7 @@ const UserType = new GraphQLObjectType({
     education: { type: GraphQLString },
     enlistTime: { type: GraphQLString },
     enlistYear: { type: GraphQLInt },
-  }
+  })
 });
 
 
@@ -55,10 +60,14 @@ const schema = new GraphQLSchema({
           	type: new GraphQLNonNull(GraphQLID)
           }
         },
-        resolve: (root, args, context, info) => {
+/*         resolve: (root, args, context, info) => {
           const { id } = args;
-          return getUser(id);
-        }
+          const res = userLoader.load(id);
+          console.log(res);
+          res.then(function (val) { console.log('value', val.data);return val.data }, function (error) { console.log(error)});
+          return res;
+        } */
+        resolve: (root, { id }, { loaders }, info) => loaders.person.load(id).then(value => value.data)
       },
       users: {
         type: PaginationType,

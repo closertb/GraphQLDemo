@@ -7,6 +7,7 @@ const users = [
   {
     id: 1,
     userName: 'Dick Winters',
+    chiefs: [],
     age: 38,
     military: 'Colonel',
     height: 182,
@@ -17,6 +18,7 @@ const users = [
   {
     id: 2,
     userName: 'Ronald Spiers',
+    chiefs: [1],
     age: 32,
     military: 'Major',
     height: 187,
@@ -27,6 +29,7 @@ const users = [
   {
     id: 3,
     userName: 'Matthew Settle',
+    chiefs: [1, 2],
     age: 32,
     military: 'Captain',
     height: 173,
@@ -37,6 +40,7 @@ const users = [
   {
     id: 4,
     userName: 'Buck Compton',
+    chiefs: [1, 2],
     age: 35,
     military: 'Captain ',
     height: 1176,
@@ -47,6 +51,7 @@ const users = [
   {
     id: 5,
     userName: 'Neal McDonough',
+    chiefs: [3, 4],
     age: 29,
     military: 'First Lieutenant ',
     height: 181,
@@ -57,6 +62,7 @@ const users = [
   {
     id: 6,
     userName: 'Lewis Nixon',
+    chiefs: [2, 3, 4],
     age: 41,
     military: 'Master Sergeant',
     height: 183,
@@ -67,6 +73,7 @@ const users = [
   {
     id: 7,
     userName: 'Ron Livingston',
+    chiefs: [4, 5],
     age: 27,
     military: 'Sergeant',
     height: 179,
@@ -77,6 +84,7 @@ const users = [
   {
     id: 8,
     userName: 'Bull Randleman',
+    chiefs: [4, 5, 6],
     age: 28,
     military: 'Sergeant',
     height: 175,
@@ -87,6 +95,7 @@ const users = [
   {
     id: 9,
     userName: 'Carwood Lipton',
+    chiefs: [6, 7],
     age: 38,
     military: 'Corporal ',
     height: 186,

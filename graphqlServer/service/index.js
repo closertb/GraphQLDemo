@@ -1,8 +1,11 @@
 import qs from 'querystring';
 import http from '../utils/http';
 
-export async function getUser(userId) {
+export function getUserById(id) {
+  return http.get(`http://127.0.0.1:8080/users/${id}`);
+}
 
+export async function getUser(userId) {
   return await http.get(`http://127.0.0.1:8080/users/${userId}`).then(res => res.data);
 }
 
