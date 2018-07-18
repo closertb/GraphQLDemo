@@ -20,10 +20,11 @@ query UserQuery($id: ID!){
 
 const withQuery = graphql(USER_QUERY, {
   options: (props) => {
+    console.log(props);
     const { match: { params } } = props;
     return {
       variables: {
-        id: params.id
+        id: params.id,
       },
     };
   },

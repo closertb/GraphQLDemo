@@ -37,6 +37,7 @@ class List extends Component {
     const { data: lists, total } = users;
     return (
       <div>
+        <h2 className="total"><Link to="/todo">Test Todo</Link></h2>
         <p className="total">总共有<span>{total}</span>名军士</p>
         <ul className="list">
           {

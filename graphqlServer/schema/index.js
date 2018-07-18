@@ -24,7 +24,6 @@ const UserType = new GraphQLObjectType({
       type: GraphQLString,
       resolve: (root, args, context, info) => {
         const { id } = root;
-        console.log(info)
         return getUserMixNick(id);
       }
      },
