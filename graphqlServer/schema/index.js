@@ -1,38 +1,71 @@
 import {
   GraphQLObjectType,
   GraphQLSchema,
-  GraphQLInt,
-  GraphQLID,
-  GraphQLString,
-  GraphQLList,
+  GraphQLInt as Int,
+  GraphQLID as ID,
+  GraphQLString as Str,
+  GraphQLList as List,
   GraphQLNonNull,
 } from 'graphql/type';
 import DataLoader from 'dataloader';
 import { getUser, getUsers, getUserMixNick, getUserById } from '../service/index';
 
 const userLoader = new DataLoader(ids => getUserById(ids));
+
+const BookType = new GraphQLObjectType({
+  name: 'book',
+  fields: () => ({
+    book_id: { type: Int },
+    status: { type: Str },
+    title: {
+      type: Str,
+      resolve: ({ book }) => {
+        console.log(book);
+        return book.title;
+      }
+    },
+    image: {
+      type: Str,
+      resolve: ({ book: { image } }) => image
+    },
+  })
+});
+
+const CollectionType = new GraphQLObjectType({
+  name: 'Collection',
+  fields: () => ({
+    count: { type: Int },
+    total: { type: Int },
+    collections: { 
+      type: new List(BookType),
+      resolve: (root = {}) => {
+        return root.collections;
+      }
+    } 
+  })
+})
 const UserType = new GraphQLObjectType({
   name: 'User',
   fields: () => ({
-    id: { type: GraphQLInt },
-    userName: { type: GraphQLString },
+    id: { type: Int },
+    userName: { type: Str },
     chiefs: {
-      type: new GraphQLList(UserType),
+      type: new List(UserType),
       resolve: (user, args, { loaders }) => loaders.person.loadMany(user.chiefs).then(value => value.map(item => item.data))
     },
     userMixNick: { 
-      type: GraphQLString,
+      type: Str,
       resolve: (root, args, context, info) => {
         const { id } = root;
         return getUserMixNick(id);
       }
      },
-    military: { type: GraphQLString },
-    age: { type: GraphQLInt },
-    height: { type: GraphQLInt },
-    education: { type: GraphQLString },
-    enlistTime: { type: GraphQLString },
-    enlistYear: { type: GraphQLInt },
+    military: { type: Str },
+    age: { type: Int },
+    height: { type: Int },
+    education: { type: Str },
+    enlistTime: { type: Str },
+    enlistYear: { type: Int },
   })
 });
 
@@ -40,11 +73,11 @@ const UserType = new GraphQLObjectType({
 const PaginationType = new GraphQLObjectType({
   name: 'Pagination',
   fields: {
-    pageSize: { type: GraphQLInt },
-    pageNum: { type: GraphQLInt },
-    total: { type: GraphQLInt },
+    pageSize: { type: Int },
+    pageNum: { type: Int },
+    total: { type: Int },
     data: {
-      type: new GraphQLList(UserType)
+      type: new List(UserType)
     }
   }
 });
@@ -56,7 +89,7 @@ const schema = new GraphQLSchema({
         type: UserType,
         args: {
           id: {
-          	type: new GraphQLNonNull(GraphQLID)
+          	type: new GraphQLNonNull(ID)
           }
         },
 /*         resolve: (root, args, context, info) => {
@@ -71,11 +104,17 @@ const schema = new GraphQLSchema({
       users: {
         type: PaginationType,
         args: {
-          pageNum: { type: GraphQLInt },
-          pageSize: { type: GraphQLInt }
+          pageNum: { type: Int },
+          pageSize: { type: Int }
         },
         resolve: (root, { filters, pageNum, pageSize }) => {
           return getUsers(filters, pageNum, pageSize);
+        }
+      },
+      collections: {
+        type: CollectionType,
+        resolve: (root) => {
+          return root.books;
         }
       }
     }
