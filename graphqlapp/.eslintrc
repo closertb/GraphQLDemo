@@ -39,5 +39,9 @@
     "react/prop-types": 0,
     "no-console": "warn"
   },
-  "globals": {}
+  "globals": {
+    "document": true,
+    "windows": true,
+    "localStorage": true
+  }
 }

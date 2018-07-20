@@ -1,11 +1,36 @@
+html {
+  height: 100%;
+}
 body {
   margin: 0;
   padding: 0;
+  height: 100%;
   font-family: sans-serif;
 }
 
-.App {
-  text-align: center;
+#app {
+  height: 100%;
+  .trigger {
+    font-size: 18px;
+    line-height: 64px;
+    padding: 0 24px;
+    cursor: pointer;
+    transition: color .3s;
+    &:hover {
+      color: #1890ff;
+    }
+  }
+  .logo {
+    height: 48px;
+    color: white;
+    line-height: 48px;
+    text-align: center;
+    font-weight: bold;
+    background: rgba(255, 255, 255, .2);
+  }
+  .layout {
+    height: 100%;
+  }
 }
 
 .App-logo {
@@ -29,35 +54,29 @@ body {
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.list {
-  margin-top: 15px;
-  li {
-    margin: 10px 5px;
-    list-style: none;
-    span {
-      display: inline-block;
-      width: 200px;
-      margin-left: 15px;
-    }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
+
 .loading {
   margin-top: 25px;
   text-align: center;
   font-weight: 500;
 }
+
 .total {
-  margin-left: 25px;
+  margin-left: 5px;
   span {
     padding: 0 5px;
     color: red;
     font-weight: 600;
   }
 }
+
 .detail {
   margin: 15px;
   h2 {
