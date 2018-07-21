@@ -4,4 +4,4 @@
 npm i
 npm start
 ```
-open `http://localhost:8080/graphiql`
+open `http://localhost:4001/graphiql`
