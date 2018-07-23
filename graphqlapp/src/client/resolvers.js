@@ -36,9 +36,13 @@ const resolvers = {
         }
       `;
       const todo = cache.readFragment({ fragment, id });
-      console.log(id, todo);
       const data = { ...todo, completed: !todo.completed };
       cache.writeData({ id, data });
+      return null;
+    },
+    changeStatus: (_, { status }, { cache }) => {
+      const data = { readStatus: status };
+      cache.writeData({ data });
       return null;
     },
   },

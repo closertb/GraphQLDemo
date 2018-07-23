@@ -4,6 +4,7 @@ import { Layout, Menu, Icon } from 'antd';
 import List from '../components/MilitaryList';
 import Detail from '../components/MilitaryList/Detail';
 import Todo from '../components/TodoList';
+import BookList from '../components/BookListManage';
 
 const { Header, Sider, Content } = Layout;
 export default class Layer extends Component {
@@ -44,8 +45,10 @@ export default class Layer extends Component {
               </Link>
             </Menu.Item>
             <Menu.Item key="3">
-              <Icon type="upload" />
-              <span>状态管理</span>
+              <Link to="/bookList">
+                <Icon type="upload" />
+                <span>状态管理</span>
+              </Link>
             </Menu.Item>
           </Menu>
         </Sider>
@@ -60,6 +63,7 @@ export default class Layer extends Component {
           <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
             <Route exact path="/" component={List} />
             <Switch>
+              <Route exact path="/bookList" component={BookList} />
               <Route exact path="/militaryList" component={List} />
               <Route exact path="/:id/detail" component={Detail} />
               <Route exact path="/todo" component={Todo} />

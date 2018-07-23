@@ -12,12 +12,12 @@ const ADD_TODO = gql`
 
 const TodoForm = () => (
   <Mutation mutation={ADD_TODO}>
-    {addTodo => {
-      let input;
+    {(addTodo) => {
+      let input = {};
       return (
         <div>
           <form
-            onSubmit={e => {
+            onSubmit={(e) => {
               e.preventDefault();
               if (!input.value.trim()) {
                 return;
@@ -27,7 +27,7 @@ const TodoForm = () => (
             }}
           >
             <input
-              ref={node => {
+              ref={(node) => {
                 input = node;
               }}
             />

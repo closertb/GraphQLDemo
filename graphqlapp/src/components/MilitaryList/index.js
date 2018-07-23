@@ -39,7 +39,7 @@ const columns = [{
   title: '操作',
   dataIndex: 'id',
   key: 'detailId',
-  render: (id) => { return (<Link to={`/${id}/detail`} >详情</Link>);}
+  render: id => <Link to={`/${id}/detail`} >详情</Link>,
 }];
 
 const withQuery = graphql(USERS_QUERY, {
@@ -64,6 +64,7 @@ class List extends Component {
     const tableProps = {
       dataSource: lists,
       columns,
+      rowKey: 'id',
     };
     return (
       <div>

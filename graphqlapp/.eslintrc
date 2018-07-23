@@ -37,6 +37,7 @@
     "arrow-parens": [ 2, "as-needed", { "requireForBlockBody": true }],
     "semi-spacing": [ 0, { "before": false,"after": false}],
     "react/prop-types": 0,
+    "react/display-name": 0,
     "no-console": "warn"
   },
   "globals": {

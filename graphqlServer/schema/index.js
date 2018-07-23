@@ -20,7 +20,6 @@ const BookType = new GraphQLObjectType({
     title: {
       type: Str,
       resolve: ({ book }) => {
-        console.log(book);
         return book.title;
       }
     },
@@ -113,8 +112,16 @@ const schema = new GraphQLSchema({
       },
       collections: {
         type: CollectionType,
-        resolve: (root) => {
-          return root.books;
+        args: {
+          status: { type: Str },
+        },
+        resolve: (root = {}, { status = '' }) => {
+          const { collections } = root.books;
+          const filter = status ? collections.filter(item => item.status === status) : collections;
+          return {
+            total: filter.length,
+            collections: filter
+          };
         }
       }
     }
