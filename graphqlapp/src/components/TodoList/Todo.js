@@ -7,7 +7,6 @@ const TOGGLE_TODO = gql`
     toggleTodo(id: $id) @client
   }
 `;
-
 const Todo = ({ id, completed, text }) => (
   <Mutation mutation={TOGGLE_TODO} variables={{ id }}>
     {toggleTodo => (

@@ -1,8 +1,8 @@
-import React from "react";
-import { Query, graphql } from "react-apollo";
-import gql from "graphql-tag";
+import React from 'react';
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
 
-import Todo from "./Todo";
+import Todo from './Todo';
 
 const GET_TODOS = gql`
   {
@@ -17,20 +17,20 @@ const GET_TODOS = gql`
 
 const getVisibleTodos = (todos, filter) => {
   switch (filter) {
-    case "SHOW_ALL":
+    case 'SHOW_ALL':
       return todos;
-    case "SHOW_COMPLETED":
+    case 'SHOW_COMPLETED':
       return todos.filter(t => t.completed);
-    case "SHOW_ACTIVE":
+    case 'SHOW_ACTIVE':
       return todos.filter(t => !t.completed);
     default:
-      throw new Error("Unknown filter: " + filter);
+      throw new Error('Unknown filter: ' + filter);
   }
 };
 
 const TodoList = () => (
   <Query query={GET_TODOS}>
-    {param => {
+    {(param) => {
       const { data: { todos, visibilityFilter } } = param;
       return (
         <ul>

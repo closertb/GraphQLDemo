@@ -61,7 +61,6 @@ export default class Layer extends Component {
             />
           </Header>
           <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
-            <Route exact path="/" component={List} />
             <Switch>
               <Route exact path="/bookList" component={BookList} />
               <Route exact path="/militaryList" component={List} />
