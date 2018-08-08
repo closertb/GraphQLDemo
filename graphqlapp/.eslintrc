@@ -43,6 +43,7 @@
   "globals": {
     "document": true,
     "windows": true,
+    "location": true,
     "localStorage": true
   }
 }

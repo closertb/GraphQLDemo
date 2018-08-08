@@ -23,6 +23,8 @@ export default class Layer extends Component {
 
   render() {
     const { collapsed } = this.state;
+    const hashArr = location.hash.split('/');
+    const selectedHash = hashArr.length > 1 ? hashArr[1] : 'militaryList';
     return (
       <Layout className="layout">
         <Sider
@@ -31,20 +33,20 @@ export default class Layer extends Component {
           collapsed={collapsed}
         >
           <div className="logo">GraphQL Actual Combat</div>
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-            <Menu.Item key="1">
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={[selectedHash]}>
+            <Menu.Item key="militaryList">
               <Link to="/militaryList">
                 <Icon type="user" />
                 <span>MilitaryList</span>
               </Link>
             </Menu.Item>
-            <Menu.Item key="2">
+            <Menu.Item key="todo">
               <Link to="/todo">
                 <Icon type="video-camera" />
                 <span>TodoList</span>
               </Link>
             </Menu.Item>
-            <Menu.Item key="3">
+            <Menu.Item key="bookList">
               <Link to="/bookList">
                 <Icon type="upload" />
                 <span>状态管理</span>
@@ -64,7 +66,7 @@ export default class Layer extends Component {
             <Switch>
               <Route exact path="/bookList" component={BookList} />
               <Route exact path="/militaryList" component={List} />
-              <Route exact path="/:id/detail" component={Detail} />
+              <Route exact path="/militaryList/:id/detail" component={Detail} />
               <Route exact path="/todo" component={Todo} />
             </Switch>
           </Content>

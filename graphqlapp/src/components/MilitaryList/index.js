@@ -39,7 +39,7 @@ const columns = [{
   title: '操作',
   dataIndex: 'id',
   key: 'detailId',
-  render: id => <Link to={`/${id}/detail`} >详情</Link>,
+  render: id => <Link to={`/militaryList/${id}/detail`} >详情</Link>,
 }];
 
 const withQuery = graphql(USERS_QUERY, {
