@@ -1,0 +1,13 @@
+{
+  "apps": [
+    {
+      "name": "koaProcess",
+      "script": "npm",
+      "args": "start",
+      "exec_mode": "cluster",
+      "instances": 0,
+      "watch": "./",
+      "log_date_format": "YYYY-MM-DD HH:mm Z"
+    }
+  ]
+}

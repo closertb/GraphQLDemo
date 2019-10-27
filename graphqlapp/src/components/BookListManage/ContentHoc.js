@@ -36,17 +36,11 @@ export default class BookList extends Component {
   }
   render() {
     const { status } = this.props;
-
+    const mock = { total: 0, collections: [] };
     return (
       <Query query={BOOKS_QUERY} variables={{ status }}>
         {({ loading, error, data }) => {
-          if (loading) {
-            return <div className="loading">Loading...</div>;
-          }
-          if (error) {
-            return <div className="loading error">error</div>;
-          }
-          const { collections: lists, total } = data.collections;
+          const { collections: lists, total } = mock;
           const tableProps = {
             dataSource: lists,
             columns,

@@ -16,6 +16,7 @@ const columns = [{
   dataIndex: 'image',
   key: 'image',
 }];
+
 export const BOOKS_QUERY = gql`
   query($status: String){
     collections(status: $status) {

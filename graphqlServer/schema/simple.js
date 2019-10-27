@@ -12,6 +12,7 @@ const schema = buildSchema(`
     user(id: ID!): User
   }
 
+  
   type Mutation {
     createMessage(input: MessageInput): Message
     updateMessage(id: ID!, input: MessageInput): Message

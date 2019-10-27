@@ -91,13 +91,6 @@ const schema = new GraphQLSchema({
           	type: new GraphQLNonNull(ID)
           }
         },
-/*         resolve: (root, args, context, info) => {
-          const { id } = args;
-          const res = userLoader.load(id);
-          console.log(res);
-          res.then(function (val) { console.log('value', val.data);return val.data }, function (error) { console.log(error)});
-          return res;
-        } */
         resolve: (root, { id }, { loaders }, info) => loaders.person.load(id).then(value => value.data)
       },
       users: {
