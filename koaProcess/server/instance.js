@@ -53,26 +53,13 @@ class AngelServer extends AngelConfig {
         trimBlocks: true
       }
     }));
-
-/*     this.app.use(async (ctx, next) => {
-      ctx.logger = new AngelLogger().logger;
-      await next();
-    }) */
-  
-    //访问日志
-/*     this.app.use(async (ctx, next) => {
-      await next();
-      // console.log(ctx.logger,'loggerloggerlogger');
-      const rt = ctx.response.get('X-Response-Time');
-      ctx.logger.info(`angel ${ctx.method}`.green,` ${ctx.url} - `,`${rt}`.green);
-    }); */
     
-    // 响应时间
+    // 响应监测中间件
     this.app.use(async (ctx, next) => {
       const start = Date.now();
       await next();
       const ms = Date.now() - start;
-      console.log('response:', `${ms}ms`);
+      console.log(`the process pid is: ${process.pid}`, 'response:', `${ms}ms`);
       ctx.set('X-Response-Time', `${ms}ms`);
     });
 
