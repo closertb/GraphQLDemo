@@ -1,41 +1,21 @@
-const http = require('http');
-const fork = require('child_process').fork;
-const { compute } = require('./fork_compute'); 
-const port = 8080;
+require('colors'); // 给string 注入props
+const AngelServer = require('./server/instance.js');
+const path = require('path');
 
-const getRes = () =>  new Promise((res) => {
-  setTimeout(() => {
-    const sum = compute();
-    res(sum);
-  }, 0)
-})
-
-const server = http.createServer((req, res) => {
-    console.log('req', req.url);
-    if(req.url == '/compute'){
-/*       const compute = fork('./fork_compute.js');
-        compute.send('开启一个新的子进程');
-
-        // 当一个子进程使用 process.send() 发送消息时会触发 'message' 事件
-        compute.on('message', sum => {
-            res.end(`Sum is ${sum}`);
-            compute.kill();
-        });
-
-        // 子进程监听到一些错误消息退出
-        compute.on('close', (code, signal) => {
-            console.log(`收到close事件，子进程收到信号 ${signal} 而终止，退出码 ${code}`);
-            compute.kill();
-        }) */
-        getRes().then(sum => {
-          res.end(`Sum is ${sum}, the time is ${Date.now()}`)
-        })
-        console.log('end');
-    }else{
-        res.end(`ok, the time is ${Date.now()}`);
-    }
+const angelServer = new AngelServer({
+  routerUrl: path.join(process.cwd(), 'server/router.js'),//路由地址
+  configUrl: path.join(process.cwd(), 'config/constants.js')  
+  //默认读取config/config.default.js
 });
 
-server.listen(port, '0.0.0.0', () => {
-    console.log(`server started at http://127.0.0.1:${port}`);
+//服务器优雅退出
+angelServer.app.on('error', err => {
+  angelServer.server.close(() => {
+    //所有已有连接断开后，退出进程
+    process.exit(1);
+  });
+  //5秒后退出进程
+  timeout = setTimeout(() => {
+    process.exit(1);
+  },5000);
 });

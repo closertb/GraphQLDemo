@@ -1,9 +1,8 @@
 {
   "apps": [
     {
-      "name": "koaProcess",
-      "script": "npm",
-      "args": "start",
+      "name": "dom",
+      "script": "index.js",
       "exec_mode": "cluster",
       "instances": 0,
       "watch": "./",

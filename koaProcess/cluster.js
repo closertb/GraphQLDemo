@@ -5,14 +5,15 @@ const AngelServer = require('./server/instance.js');
 const path = require('path');
 const cpusNum = cpus().length;
 
+/**
+ * 执行过程: node server.js
+ * 首次cluster.isMaster为true, 然后fork了四个线程；
+ * 接着每个启动，又重头执行，但这时cluster.isMaster为false了
+ * 所以就实例化了四个服务AngelServer
+ */
+
 //超时
 const timeout = null;
-
-//重启次数
-const limit = 10;
-// 时间
-const during = 60000;
-let restart = [];
 
 // console.log('start', cluster.isWorker, cluster.isMaster ? 'master' : 'fork');
 //master进程
@@ -21,7 +22,6 @@ if(cluster.isMaster) {
   for(let i = 0; i < cpusNum; i++) {
     creatServer();
   }
-
 } else {
   //worker进程
   const angelServer = new AngelServer({
@@ -65,10 +65,3 @@ function creatServer() {
     clearTimeout(timeout);
   });
 }
-
-/**
- * 执行过程: node server.js
- * 首次cluster.isMaster为true, 然后fork了四个线程；
- * 接着每个启动，又重头执行，但这时cluster.isMaster为false了
- * 所以就实例化了四个服务AngelServer
- */

@@ -72,6 +72,7 @@ class AngelServer extends AngelConfig {
       const start = Date.now();
       await next();
       const ms = Date.now() - start;
+      console.log('response:', `${ms}ms`);
       ctx.set('X-Response-Time', `${ms}ms`);
     });
 
