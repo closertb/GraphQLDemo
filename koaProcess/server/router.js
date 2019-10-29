@@ -15,7 +15,7 @@ home.get('/', ( ctx )=>{
 })
 
 function addTime(content) {
-  return `${content}, the time is ${Date.now()}`
+  return `${content}, the time is ${Date.now()}, the process pid is: ${process.pid}`
 }
 // 子路由2
 const page = new Router()

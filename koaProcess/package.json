@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "cluster": "node cluster.js",
-    "fork": "node fork.js"
+    "fork": "node fork.js",
+    "demon": "pm2 start pm2.json --no-daemon"
   },
   "keywords": [],
   "author": "",

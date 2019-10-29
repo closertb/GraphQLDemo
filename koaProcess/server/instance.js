@@ -59,7 +59,7 @@ class AngelServer extends AngelConfig {
       const start = Date.now();
       await next();
       const ms = Date.now() - start;
-      console.log(`the process pid is: ${process.pid}`, 'response:', `${ms}ms`);
+      console.log('response:', `${ctx.url}`, `the process pid is: ${process.pid}`);
       ctx.set('X-Response-Time', `${ms}ms`);
     });
 
