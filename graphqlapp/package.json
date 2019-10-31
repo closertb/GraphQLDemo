@@ -28,7 +28,7 @@
     "style-loader": "^0.20.1",
     "url-loader": "^0.6.2",
     "webpack": "^3.8.1",
-    "webpack-dev-server": "^2.9.5"
+    "webpack-dev-server": "^3.1.11"
   },
   "dependencies": {
     "antd": "^3.7.0",
