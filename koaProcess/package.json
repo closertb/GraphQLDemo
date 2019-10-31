@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "cluster": "node cluster.js",
     "fork": "node fork.js",
     "demon": "pm2 start pm2.json --no-daemon"
@@ -17,10 +17,14 @@
     "cluster": "^0.7.7",
     "colors": "^1.3.3",
     "koa": "^2.8.1",
+    "koa-bodyparser": "^4.2.1",
     "koa-compress": "^3.0.0",
     "koa-nunjucks-2": "^3.0.2",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
     "os": "^0.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
   }
 }

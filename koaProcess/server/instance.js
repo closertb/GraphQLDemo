@@ -4,6 +4,7 @@ const app = new Koa();
 const koaNunjucks = require('koa-nunjucks-2');
 const koaStatic = require('koa-static');
 const KoaRouter = require('koa-router');
+const bodyParser = require('koa-bodyparser')
 const router = new KoaRouter();
 const path = require('path');
 const compress = require('koa-compress');
@@ -63,11 +64,12 @@ class AngelServer extends AngelConfig {
       ctx.set('X-Response-Time', `${ms}ms`);
     });
 
-    this.app.use(router.routes()).use(router.allowedMethods());
-
     // 静态资源
     this.app.use(koaStatic(this.config.root, this.config.static));
-  
+    // post 请求body解析
+    this.app.use(bodyParser());
+    // 路由解析
+    this.app.use(router.routes()).use(router.allowedMethods());
     // 启动服务器
     this.server = this.app.listen(this.port, () => {
       console.log(`当前服务器已经启动,请访问`,`http://127.0.0.1:${this.port}`.green);
