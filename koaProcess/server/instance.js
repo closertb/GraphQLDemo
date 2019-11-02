@@ -3,8 +3,8 @@ const Koa = require('koa');
 const app = new Koa();
 const koaNunjucks = require('koa-nunjucks-2');
 const koaStatic = require('koa-static');
+const bodyParser = require('koa-body');
 const KoaRouter = require('koa-router');
-const bodyParser = require('koa-bodyparser')
 const router = new KoaRouter();
 const path = require('path');
 const compress = require('koa-compress');
@@ -47,13 +47,13 @@ class AngelServer extends AngelConfig {
     this.app.use(compress(this.config.compress));
 
       //模板语法
-    this.app.use(koaNunjucks({
-      ext: 'html',
-      path: path.join(process.cwd(), 'views'),
-      nunjucksConfig: {
-        trimBlocks: true
-      }
-    }));
+    // this.app.use(koaNunjucks({
+    //   ext: 'html',
+    //   path: path.join(process.cwd(), 'views'),
+    //   nunjucksConfig: {
+    //     trimBlocks: true
+    //   }
+    // }));
     
     // 响应监测中间件
     this.app.use(async (ctx, next) => {
@@ -67,8 +67,18 @@ class AngelServer extends AngelConfig {
     // 静态资源
     this.app.use(koaStatic(this.config.root, this.config.static));
     // post 请求body解析
-    this.app.use(bodyParser());
-    // 路由解析
+    this.app.use(bodyParser({
+      multipart: true,
+      formidable:{
+        // uploadDir:path.join(__dirname,'../static/'), // 设置文件上传目录
+        keepExtensions: true,    // 保持文件的后缀
+        maxFieldsSize:2 * 1024 * 1024, // 文件上传大小
+        onFileBegin:(name, file) => { // 文件上传前的设置
+          // console.log('name:', file);
+        },  
+      }
+    }));
+    // 路由解析  
     this.app.use(router.routes()).use(router.allowedMethods());
     // 启动服务器
     this.server = this.app.listen(this.port, () => {

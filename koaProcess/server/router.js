@@ -1,6 +1,7 @@
 const Router = require('koa-router')
 const { compute } = require('./fork_compute');
 const fileProcess = require('./file');
+const deployProcess = require('./deploy');
 const home = new Router();
 // 子路由1
 home.get('/', ( ctx )=>{
@@ -26,7 +27,7 @@ page.get('/404', async ( ctx )=>{
 }).get('/compute', async ( ctx )=>{
   const sum = compute();
   ctx.body = addTime(`Sum is ${sum}`);
-}).post('/create', fileProcess);
+}).post('/create', fileProcess).post('/deploy', deployProcess);
 
 module.exports = function router({ router, config, app }) {
 /*   const logs = router

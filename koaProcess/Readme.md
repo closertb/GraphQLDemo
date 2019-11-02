@@ -10,7 +10,7 @@
 ### 那些命令行
  - pm2 start pm2.json // 启动
  - pm2 start pm2.json --no-daemon // 启动无守护进程模式，这种可以实时打印出console.log
- - pm2 logs
+ - pm2 logs 
  - pm2 delete name
  - pm2 restart name
  - pm2 monit name
