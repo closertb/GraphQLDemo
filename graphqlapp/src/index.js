@@ -9,7 +9,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import App from './pages/App';
 import 'antd/dist/antd.css';
-import './style/index.scss';
+import './style/index.less';
 
 render((
   <App />

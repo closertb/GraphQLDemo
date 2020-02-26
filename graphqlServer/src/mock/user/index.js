@@ -1,6 +1,6 @@
 /**
- * @author Kuitos
- * @homepage https://github.com/kuitos/
+ * @author closertb
+ * @homepage https://github.com/closertb/
  * @since 2017-06-15
  */
 const users = [
@@ -108,7 +108,7 @@ const getUserById = (userId) => {
   const res = users.filter(({ id }) => id === +userId);
   return res[0];
 }
-export default router => {
+module.exports = router => {
 
 	router.get('/users/:id', ({ params }, res) => {
 		const { id } = params;
@@ -116,15 +116,13 @@ export default router => {
 	});
 
 	router.get('/users', ({ query }, res) => {
-
 		const { pageSize, pageNum, ...params } = query;
-
+    console.log('ans', (pageNum - 1) * pageSize, pageNum* pageSize);
 		res.send({
-
 			total: users.length,
       pageSize: pageSize || 10,
       pageNum: pageNum || 1,
-			data: users
+			data: users.slice((pageNum - 1) * pageSize, pageNum* pageSize)
 		});
 
 	});

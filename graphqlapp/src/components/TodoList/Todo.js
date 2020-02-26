@@ -11,12 +11,11 @@ const Todo = ({ id, completed, text }) => (
   <Mutation mutation={TOGGLE_TODO} variables={{ id }}>
     {toggleTodo => (
       <li
-        onClick={toggleTodo}
         style={{
           textDecoration: completed ? 'line-through' : 'none',
         }}
       >
-        {text}
+        <a onClick={toggleTodo}>{text}</a>
       </li>
     )}
   </Mutation>

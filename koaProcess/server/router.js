@@ -2,6 +2,11 @@ const Router = require('koa-router')
 const { compute } = require('./fork_compute');
 const fileProcess = require('./file');
 const deployProcess = require('./deploy');
+
+const notFount = require('./404');
+const helloworld = require('./helloworld');
+
+
 const home = new Router();
 // 子路由1
 home.get('/', ( ctx )=>{
@@ -20,14 +25,13 @@ function addTime(content) {
 }
 // 子路由2
 const page = new Router()
-page.get('/404', async ( ctx )=>{
-  ctx.body = addTime('404 page!');
-}).get('/helloworld', async ( ctx )=>{
-  ctx.body = addTime('helloworld page!');
-}).get('/compute', async ( ctx )=>{
-  const sum = compute();
-  ctx.body = addTime(`Sum is ${sum}`);
-}).post('/create', fileProcess).post('/deploy', deployProcess);
+page.get('/404', notFount)
+  .get('/helloworld', helloworld)
+  .get('/compute', async ( ctx )=>{
+    const sum = compute();
+    ctx.body = addTime(`Sum is ${sum}`);
+  })
+  .post('/create', fileProcess).post('/deploy', deployProcess);
 
 module.exports = function router({ router, config, app }) {
 /*   const logs = router

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
+import React from 'react';
+import { useQuery } from '@apollo/react-hooks';
 import { Table } from 'antd';
 import gql from 'graphql-tag';
 
@@ -18,8 +18,8 @@ const columns = [{
 }];
 
 export const BOOKS_QUERY = gql`
-  query($status: String){
-    collections(status: $status) {
+  query($top: Int){
+    collections(top: $status) {
       total
       collections {
         book_id
@@ -30,35 +30,30 @@ export const BOOKS_QUERY = gql`
   }
 `;
 
-const withQuery = graphql(BOOKS_QUERY, {
-  options: ({ status }) => ({
-    variables: {
-      status,
-    },
-  }),
-});
-class BookList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
+export default function BookList(props) {
+  const { top } = props;
+  const { loading, error, data } = useQuery(BOOKS_QUERY, {
+    top
+  });
+  if (loading) {
+    return <div className="loading">Loading...</div>;
   }
-  render() {
-    const { data: { loading, collections } } = this.props;
-    if (loading) {
-      return <div className="loading">Loading...</div>;
-    }
-    const { collections: lists, total } = collections;
-    const tableProps = {
-      dataSource: lists,
-      columns,
-    };
+  if (error) {
     return (
-      <div>
-        <p className="total">总共有<span>{total}</span>本图书</p>
-        <Table {...tableProps} />
+      <div className="loading">
+        {error.message || '未知错误'}
       </div>
     );
   }
+  const { collections: lists, total } = data;
+  const tableProps = {
+    dataSource: lists,
+    columns,
+  };
+  return (
+    <div>
+      <p className="total">总共有<span>{total}</span>本图书</p>
+      <Table {...tableProps} />
+    </div>
+  );
 }
-const Content = withQuery(BookList);
-export default Content;

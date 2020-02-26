@@ -1,14 +1,15 @@
-import {
+  
+const {
   GraphQLObjectType,
   GraphQLSchema,
-  GraphQLInt as Int,
-  GraphQLID as ID,
-  GraphQLString as Str,
-  GraphQLList as List,
+  GraphQLInt: Int,
+  GraphQLID: ID,
+  GraphQLString: Str,
+  GraphQLList: List,
   GraphQLNonNull,
-} from 'graphql/type';
-import DataLoader from 'dataloader';
-import { getUser, getUsers, getUserMixNick, getUserById } from '../service/index';
+} = require('graphql');
+const DataLoader = require('dataloader');
+const { getUsers, getUserMixNick, getTopBooks } = require('../service');
 
 const userLoader = new DataLoader(ids => getUserById(ids));
 
@@ -16,17 +17,10 @@ const BookType = new GraphQLObjectType({
   name: 'book',
   fields: () => ({
     book_id: { type: Int },
-    status: { type: Str },
-    title: {
-      type: Str,
-      resolve: ({ book }) => {
-        return book.title;
-      }
-    },
-    image: {
-      type: Str,
-      resolve: ({ book: { image } }) => image
-    },
+    title: { type: Str },
+    subtitle: { type: Str },
+    image: { type: Str },
+    url: { type: Str },
   })
 });
 
@@ -38,11 +32,13 @@ const CollectionType = new GraphQLObjectType({
     collections: { 
       type: new List(BookType),
       resolve: (root = {}) => {
-        return root.collections;
+        // console.log('root', root.books);
+        return root.books;
       }
     } 
   })
-})
+});
+
 const UserType = new GraphQLObjectType({
   name: 'User',
   fields: () => ({
@@ -68,7 +64,6 @@ const UserType = new GraphQLObjectType({
   })
 });
 
-
 const PaginationType = new GraphQLObjectType({
   name: 'Pagination',
   fields: {
@@ -80,6 +75,7 @@ const PaginationType = new GraphQLObjectType({
     }
   }
 });
+
 const schema = new GraphQLSchema({
   query: new GraphQLObjectType({
     name: 'militaryQuery',
@@ -106,19 +102,17 @@ const schema = new GraphQLSchema({
       collections: {
         type: CollectionType,
         args: {
-          status: { type: Str },
+          top: { type: Int },
         },
-        resolve: (root = {}, { status = '' }) => {
-          const { collections } = root.books;
-          const filter = status ? collections.filter(item => item.status === status) : collections;
-          return {
-            total: filter.length,
-            collections: filter
-          };
+        resolve: async (root = {}, { top = 10 }) => {
+          const res = await getTopBooks(top);
+          // console.log('res:', res);
+          return res;
         }
       }
     }
   })
 });
 
-export default schema;
+
+module.exports = schema;

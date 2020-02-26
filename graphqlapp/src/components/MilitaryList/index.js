@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { graphql } from 'react-apollo';
+import { useQuery } from '@apollo/react-hooks';
 import { Table } from 'antd';
 import gql from 'graphql-tag';
 
@@ -39,50 +39,36 @@ const columns = [{
   title: '操作',
   dataIndex: 'id',
   key: 'detailId',
-  render: id => <Link to={`/militaryList/${id}/detail`} >详情</Link>,
+  render: id => <Link to={`/militaryList/${id}/detail`}>详情</Link>,
 }];
 
-const withQuery = graphql(USERS_QUERY, {
-  options: () => ({
+export default function MiltaryList() {
+  const { loading, error, data } = useQuery(USERS_QUERY, {
     variables: {
-      pageNum: 3,
-      pageSize: 8,
-    },
-  }),
-});
-class List extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  render() {
-    const { data: { loading, users } } = this.props;
-    if (loading) {
-      return <div className="loading">Loading...</div>;
+      pageNum: 1,
+      pageSize: 5,
     }
-    const { data: lists, total } = users;
-    const tableProps = {
-      dataSource: lists,
-      columns,
-      rowKey: 'id',
-    };
+  });
+  if (loading) {
+    return <div className="loading">Loading...</div>;
+  }
+  if (error) {
     return (
-      <div>
-        <p className="total">总共有<span>{total}</span>名军士</p>
-        <Table {...tableProps} />
-        {/* <ul className="list">
-          {
-            lists.map(({ userName, id }, key) =>
-              <li key={key}>
-                <span>姓名：{userName}</span>
-                <Link to={`/${id}/detail`} >详情</Link>
-              </li>
-            )
-          }
-        </ul> */}
+      <div className="loading">
+        {error.message || '未知错误'}
       </div>
     );
   }
+  const { data: lists, total } = data.users;
+  const tableProps = {
+    dataSource: lists,
+    columns,
+    rowKey: 'id',
+  };
+  return (
+    <div>
+      <p className="total">总共有<span>{total}</span>名军士</p>
+      <Table {...tableProps} />
+    </div>
+  );
 }
-const Character = withQuery(List);
-export default Character;

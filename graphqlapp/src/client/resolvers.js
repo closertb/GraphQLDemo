@@ -16,6 +16,7 @@ const resolvers = {
       `;
       const previous = cache.readQuery({ query });
       const newTodo = {
+        // eslint-disable-next-line no-plusplus
         id: nextTodoId++,
         text,
         completed: false,
@@ -40,8 +41,8 @@ const resolvers = {
       cache.writeData({ id, data });
       return null;
     },
-    changeStatus: (_, { status }, { cache }) => {
-      const data = { readStatus: status };
+    changeStatus: (_, { top }, { cache }) => {
+      const data = { top };
       cache.writeData({ data });
       return null;
     },

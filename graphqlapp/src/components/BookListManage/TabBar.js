@@ -3,23 +3,20 @@ import { Mutation } from 'react-apollo';
 import { Tabs } from 'antd';
 import gql from 'graphql-tag';
 
-const TabPane = Tabs.TabPane;
+const { TabPane } = Tabs;
 const ReadStatus = [{
-  label: '总书单',
-  value: '',
+  label: 'top20',
+  value: 20,
 }, {
-  label: '已读',
-  value: 'read',
+  label: 'top10',
+  value: 10,
 }, {
-  label: '期望读',
-  value: 'wish',
-}, {
-  label: '正在读',
-  value: 'reading',
+  label: 'top5',
+  value: 5,
 }];
 const ChangeStatus = gql`
-  mutation ChangeStatus($status: String){
-    changeStatus(status: $status) @client
+  mutation ChangeStatus($top: Int){
+    changeStatus(top: $top) @client
   }
 `;
 export default class TabBar extends Component {
@@ -27,18 +24,17 @@ export default class TabBar extends Component {
     super(props);
     this.state = {};
   }
+
   render() {
     const { status } = this.props;
     return (
-      <Mutation mutation={ChangeStatus} >
+      <Mutation mutation={ChangeStatus}>
         {changeStatus => (
-          <Tabs defaultActiveKey={status} onChange={(value) => { changeStatus({ variables: { status: value } }); }}>
-            {ReadStatus.map(({ label, value }) =>
-              <TabPane tab={label} key={value} />)}
+          <Tabs defaultActiveKey={status} onChange={(value) => { changeStatus({ variables: { top: value } }); }}>
+            {ReadStatus.map(({ label, value }) => <TabPane tab={label} key={value} />)}
           </Tabs>
         )}
       </Mutation>
     );
   }
 }
-
