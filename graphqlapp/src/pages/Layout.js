@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, Link } from 'react-router-dom'; // HashRouter as Router, 
+import { Route, Switch, Link } from 'react-router-dom'; // HashRouter as Router
 import { Layout, Menu, Icon } from 'antd';
 import List from '../components/MilitaryList';
 import Detail from '../components/MilitaryList/Detail';
@@ -15,6 +15,7 @@ export default class Layer extends Component {
     };
     this.toggle = this.toggle.bind(this);
   }
+
   toggle() {
     this.setState({
       collapsed: !this.state.collapsed,
@@ -23,7 +24,7 @@ export default class Layer extends Component {
 
   render() {
     const { collapsed } = this.state;
-    const hashArr = location.hash.split('/');
+    const hashArr = window.location.hash.split('/');
     const selectedHash = hashArr.length > 1 ? hashArr[1] : 'militaryList';
     return (
       <Layout className="layout">

@@ -6,34 +6,36 @@ body {
   padding: 0;
   height: 100%;
   font-family: sans-serif;
-}
-
-#app {
-  height: 100%;
-  .trigger {
-    font-size: 18px;
-    line-height: 64px;
-    padding: 0 24px;
-    cursor: pointer;
-    transition: color .3s;
-    &:hover {
-      color: #1890ff;
+  :global {
+    #app {
+      min-height: 100%;
+      .trigger {
+        font-size: 18px;
+        line-height: 64px;
+        padding: 0 24px;
+        cursor: pointer;
+        transition: color .3s;
+        &:hover {
+          color: #1890ff;
+        }
+      }
+      .logo {
+        height: 48px;
+        overflow: hidden;
+        
+        color: white;
+        line-height: 48px;
+        text-align: center;
+        font-weight: bold;
+        background: rgba(255, 255, 255, .2);
+      }
+      .layout {
+        height: 100%;
+      }
     }
   }
-  .logo {
-    height: 48px;
-    overflow: hidden;
-    
-    color: white;
-    line-height: 48px;
-    text-align: center;
-    font-weight: bold;
-    background: rgba(255, 255, 255, .2);
-  }
-  .layout {
-    height: 100%;
-  }
 }
+
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
