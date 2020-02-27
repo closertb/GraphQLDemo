@@ -21,7 +21,7 @@ const typeDefs = `
 
   type Query {
     visibilityFilter: String
-    readStatus: String
+    top: Int!
     todos: [Todo]
   }
 `;

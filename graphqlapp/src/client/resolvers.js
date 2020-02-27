@@ -43,6 +43,7 @@ const resolvers = {
     },
     changeStatus: (_, { top }, { cache }) => {
       const data = { top };
+      console.log('top', top);
       cache.writeData({ data });
       return null;
     },

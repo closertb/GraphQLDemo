@@ -1,6 +1,6 @@
 const defaults = {
   todos: [],
   visibilityFilter: 'SHOW_ALL',
-  readStatus: '',
+  top: 20,
 };
 export default defaults;

@@ -19,7 +19,7 @@ const columns = [{
 
 export const BOOKS_QUERY = gql`
   query($top: Int){
-    collections(top: $status) {
+    collections(top: $top) {
       total
       collections {
         book_id
@@ -32,8 +32,11 @@ export const BOOKS_QUERY = gql`
 
 export default function BookList(props) {
   const { top } = props;
-  const { loading, error, data } = useQuery(BOOKS_QUERY, {
-    top
+  console.log('change', top);
+  const { loading, error, data = {} } = useQuery(BOOKS_QUERY, {
+    variables: {
+      top: +top
+    }
   });
   if (loading) {
     return <div className="loading">Loading...</div>;
@@ -45,9 +48,10 @@ export default function BookList(props) {
       </div>
     );
   }
-  const { collections: lists, total } = data;
+  const { collections: lists = [], total } = data.collections;
   const tableProps = {
     dataSource: lists,
+    rowKey: 'book_id',
     columns,
   };
   return (

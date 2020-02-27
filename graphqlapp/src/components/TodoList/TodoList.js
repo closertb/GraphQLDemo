@@ -1,5 +1,5 @@
 import React from 'react';
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/react-components';
 import gql from 'graphql-tag';
 
 import Todo from './Todo';
@@ -15,7 +15,8 @@ const GET_TODOS = gql`
   }
 `;
 
-const getVisibleTodos = (todos, filter) => {
+const getVisibleTodos = (todos, filter = 'SHOW_ALL') => {
+  console.log('todo', todos, filter);
   switch (filter) {
     case 'SHOW_ALL':
       return todos;
@@ -31,7 +32,8 @@ const getVisibleTodos = (todos, filter) => {
 const TodoList = () => (
   <Query query={GET_TODOS}>
     {(param) => {
-      const { data: { todos, visibilityFilter } } = param;
+      const { data = {} } = param;
+      const { todos = [], visibilityFilter } = data;
       return (
         <ul>
           {getVisibleTodos(todos, visibilityFilter).map(todo => (

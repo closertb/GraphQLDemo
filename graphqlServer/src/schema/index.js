@@ -16,7 +16,10 @@ const userLoader = new DataLoader(ids => getUserById(ids));
 const BookType = new GraphQLObjectType({
   name: 'book',
   fields: () => ({
-    book_id: { type: Int },
+    book_id: { 
+      type: Int,
+      resolve: ({ id }) => id
+    },
     title: { type: Str },
     subtitle: { type: Str },
     image: { type: Str },

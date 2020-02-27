@@ -12,7 +12,7 @@ const GET_VISIBILITY_FILTER = gql`
 
 const FilterLink = ({ filter, children }) => (
   <Query query={GET_VISIBILITY_FILTER}>
-    {({ data, client }) => (
+    {({ data = {}, client }) => (
       <Link
         onClick={() => client.writeData({ data: { visibilityFilter: filter } })}
         active={data.visibilityFilter === filter}

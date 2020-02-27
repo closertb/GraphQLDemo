@@ -17,9 +17,9 @@ export default class Layer extends Component {
   }
 
   toggle() {
-    this.setState({
-      collapsed: !this.state.collapsed,
-    });
+    this.setState(({ collapsed }) => ({
+      collapsed: !collapsed,
+    }));
   }
 
   render() {
@@ -63,7 +63,7 @@ export default class Layer extends Component {
               onClick={this.toggle}
             />
           </Header>
-          <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
+          <Content style={{ margin: '24px 16px', padding: 24, background: '#fff' }}>
             <Switch>
               <Route exact path="/bookList" component={BookList} />
               <Route exact path="/militaryList" component={List} />
