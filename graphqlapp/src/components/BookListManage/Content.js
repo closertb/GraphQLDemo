@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { Table } from 'antd';
 import gql from 'graphql-tag';
@@ -18,7 +18,7 @@ const columns = [{
 }];
 
 export const BOOKS_QUERY = gql`
-  query($top: Int){
+  query list($top: Int){
     collections(top: $top) {
       total
       collections {
@@ -30,14 +30,14 @@ export const BOOKS_QUERY = gql`
   }
 `;
 
-export default function BookList(props) {
+function BookList(props) {
   const { top } = props;
-  console.log('change', top);
   const { loading, error, data = {} } = useQuery(BOOKS_QUERY, {
     variables: {
       top: +top
     }
   });
+  console.log('update list A', loading);
   if (loading) {
     return <div className="loading">Loading...</div>;
   }
@@ -61,3 +61,7 @@ export default function BookList(props) {
     </div>
   );
 }
+// console.log('top:', pre.top, next.top, pre.top === next.top);
+// 只有在top变化时，更新组件；第二个比较条件，只适合在有深比较时有必要写，像这里，写与不写作用一样，
+// memo默认会对props做浅比较；(pre, next) => pre.top === next.top
+export default memo(BookList);

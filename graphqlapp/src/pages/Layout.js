@@ -26,6 +26,7 @@ export default class Layer extends Component {
     const { collapsed } = this.state;
     const hashArr = window.location.hash.split('/');
     const selectedHash = hashArr.length > 1 ? hashArr[1] : 'militaryList';
+    console.log('app update');
     return (
       <Layout className="layout">
         <Sider
