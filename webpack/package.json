@@ -1,0 +1,25 @@
+{
+	"name": "webpack-analyse",
+	"version": "1.0.0",
+	"description": "this project is a webpack demo",
+	"main": "index.js",
+	"scripts": {
+		"single": "webpack --config ./webpack.single.config.js",
+		"multi": "webpack --config ./webpack.multi.config.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/closertb/fullStackFront.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@doddle/doddle-build": "^1.3.4",
+		"@doddle/eslint-config-doddle": "~0.0.13"
+	},
+	"dependencies": {
+		"js-cookie": "^2.1.3",
+		"moment": "^2.24.0"
+	}
+}
